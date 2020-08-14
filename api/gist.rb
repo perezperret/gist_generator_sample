@@ -1,7 +1,8 @@
 require 'gist_generator'
 
 Handler = proc do |req, res|
-  puts "QUERY: #{query.inspect}"
+  puts "REQ: #{req.inspect}"
+  puts "QUERY: #{req.query.inspect}"
 
   repo_path = req.query['repo_path']
   file_path = req.query['file_path']
