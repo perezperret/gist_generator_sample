@@ -1,6 +1,8 @@
 require 'gist_generator'
 
 Handler = proc do |req, res|
+  puts "QUERY: #{query.inspect}"
+
   repo_path = req.query['repo_path']
   file_path = req.query['file_path']
   line_numbers = req.query['line_numbers']&.split(/\s*,\s*/)&.map(&:to_i)
