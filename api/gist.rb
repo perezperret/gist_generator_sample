@@ -20,7 +20,7 @@ Handler = proc do |req, res|
       { file_path: file_path, line_numbers: line_numbers }
     ]
 
-  gist_text = GistGenerator::Serializers::Pretty.call(gists).first
+  gist_text = GistGenerator::Serializers::Pretty.call(gists).first.join
 
   puts "GISTS: #{gists}\n\n"
   puts "TEXT: #{gist_text}\n\n"
