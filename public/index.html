@@ -1,58 +1,48 @@
 <html>
   <head>
-    <title>Gist Generator Sample</title>
+    <title>Generate a Snippet</title>
+
+    <link rel="stylesheet" href="stylesheet.css">
   </head>
   <body>
-    <h1>Gist Generator</h1>
+    <div class="container">
+      <h1 class="title">Gist Generator</h1>
 
-    <p>
-      Built by <a href="https://perezperret.com">perezperret</a>,
-      using <a href="https://vercel.com">Vercel</a>
-      serverless <a href="https://ruby-lang.org">Ruby</a> functions,
-      as a sample for:
-      <a href="https://github.com/perezperret/gist_generator"></a>
-    </p>
+      <p class="content">
+        Built by <a href="https://perezperret.com">perezperret</a>,
+        using <a href="https://vercel.com">Vercel</a>
+        serverless <a href="https://ruby-lang.org">Ruby</a> functions,
+        as a sample for
+        <a href="https://github.com/perezperret/gist_generator">GistGenerator</a>
+      </p>
 
-    <p>
-      Enter a (public) repo, file path and line numbers and extract a snippet from
-      the file.
-    </p>
+      <p class="content">
+        Enter a (public) repo, file path and line numbers and extract a snippet from
+        the file.
+      </p>
 
-    <form id="gist-form" action="api/gist">
-      <label for="#repo_path">Repo path (username/package)</label>
-      <input value="railsbyexample/search_by_location" type="text" name="repo_path" id="repo_path">
+      <form class="form" id="gist-form" action="api/gist">
+        <div class="form_group">
+          <label class="form_group_label" for="#repo_path">Repo path (username/package)</label>
+          <input class="form_group_input" value="railsbyexample/search_by_location" type="text" name="repo_path" id="repo_path">
+        </div>
 
-      <label for="#file_path">File path (path/from/root)</label>
-      <input value="app/models/item.rb" type="text" name="file_path" id="file_path">
+        <div class="form_group">
+          <label class="form_group_label" for="#file_path">File path (path/from/root)</label>
+          <input class="form_group_input" value="app/models/item.rb" type="text" name="file_path" id="file_path">
+        </div>
 
-      <label for="#line_numbers">Line numbers (separate with commas)</label>
-      <input value="2,11,12,13,14,15,16" type="text" name="line_numbers" id="line_numbers">
+        <div class="form_group">
+          <label class="form_group_label" for="#line_numbers">Line numbers (separate with commas)</label>
+          <input class="form_group_input" value="2,11,12,13,14,15,16" type="text" name="line_numbers" id="line_numbers">
+        </div>
 
-      <input type="submit" name="gist" value="Create">
-    </form>
+        <input class="form_submit" type="submit" name="gist" value="Create Snippet">
+      </form>
 
-    <pre id="gist-result"></pre>
+      <pre class="code-preview" id="gist-preview"></pre>
+    </div>
 
-    <script>
-      document.getElementById('gist-form').addEventListener('submit', (e) => {
-        e.preventDefault()
-
-        values = []
-        formData = new FormData(e.target)
-        for (var key of formData.keys()) {
-          values.push([key, formData.get(key)])
-        }
-
-        query = values.map(([value, name]) => {
-          if (value && name) { return `${value}=${name}` }
-        }).filter(i => i).join('&');
-
-        fetch(`${e.target.action}?${query}`)
-          .then(response => response.text())
-          .then(result => {
-            document.getElementById('gist-result').innerText = result
-          })
-        })
-    </script>
+    <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
