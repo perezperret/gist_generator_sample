@@ -4,5 +4,55 @@
   </head>
   <body>
     <h1>Gist Generator</h1>
+
+    <p>
+      Built by <a href="https://perezperret.com">perezperret</a>,
+      using <a href="https://vercel.com">Vercel</a>
+      serverless <a href="https://ruby-lang.org">Ruby</a> functions,
+      as a sample for:
+      <a href="https://github.com/perezperret/gist_generator"></a>
+    </p>
+
+    <p>
+      Enter a (public) repo, file path and line numbers and extract a snippet from
+      the file.
+    </p>
+
+    <form id="gist-form" action="api/gist">
+      <label for="#repo_path">Repo path (username/package)</label>
+      <input value="railsbyexample/search_by_location" type="text" name="repo_path" id="repo_path">
+
+      <label for="#file_path">File path (path/from/root)</label>
+      <input value="app/models/item.rb" type="text" name="file_path" id="file_path">
+
+      <label for="#line_numbers">Line numbers (separate with commas)</label>
+      <input value="2,11,12,13,14,15,16" type="text" name="line_numbers" id="line_numbers">
+
+      <input type="submit" name="gist" value="Create">
+    </form>
+
+    <pre id="gist-result"></pre>
+
+    <script>
+      document.getElementById('gist-form').addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        values = []
+        formData = new FormData(e.target)
+        for (var key of formData.keys()) {
+          values.push([key, formData.get(key)])
+        }
+
+        query = values.map(([value, name]) => {
+          if (value && name) { return `${value}=${name}` }
+        }).filter(i => i).join('&');
+
+        fetch(`${e.target.action}?${query}`)
+          .then(response => response.text())
+          .then(result => {
+            document.getElementById('gist-result').innerText = result
+          })
+        })
+    </script>
   </body>
 </html>
