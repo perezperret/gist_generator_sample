@@ -1,8 +1,48 @@
 <html>
   <head>
-    <title>Gist Generator Sample</title>
+    <title>Generate a Snippet</title>
+
+    <link rel="stylesheet" href="stylesheet.css">
   </head>
   <body>
-    <h1>Gist Generator</h1>
+    <div class="container">
+      <h1 class="title">Gist Generator</h1>
+
+      <p class="content">
+        Built by <a href="https://perezperret.com">perezperret</a>,
+        using <a href="https://vercel.com">Vercel</a>
+        serverless <a href="https://ruby-lang.org">Ruby</a> functions,
+        as a sample for
+        <a href="https://github.com/perezperret/gist_generator">GistGenerator</a>
+      </p>
+
+      <p class="content">
+        Enter a (public) repo, file path and line numbers and extract a snippet from
+        the file.
+      </p>
+
+      <form class="form" id="gist-form" action="api/gist">
+        <div class="form_group">
+          <label class="form_group_label" for="#repo_path">Repo path (username/package)</label>
+          <input class="form_group_input" value="railsbyexample/search_by_location" type="text" name="repo_path" id="repo_path">
+        </div>
+
+        <div class="form_group">
+          <label class="form_group_label" for="#file_path">File path (path/from/root)</label>
+          <input class="form_group_input" value="app/models/item.rb" type="text" name="file_path" id="file_path">
+        </div>
+
+        <div class="form_group">
+          <label class="form_group_label" for="#line_numbers">Line numbers (separate with commas)</label>
+          <input class="form_group_input" value="2,11,12,13,14,15,16" type="text" name="line_numbers" id="line_numbers">
+        </div>
+
+        <input class="form_submit" type="submit" name="gist" value="Create Snippet">
+      </form>
+
+      <pre class="code-preview" id="gist-preview"></pre>
+    </div>
+
+    <script type="text/javascript" src="script.js"></script>
   </body>
 </html>

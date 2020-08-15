@@ -1,9 +1,6 @@
 require 'gist_generator'
 
 Handler = proc do |req, res|
-  puts "REQ: #{req.inspect}\n\n"
-  puts "QUERY: #{req.query.inspect}\n\n"
-
   repo_path = req.query['repo_path']
   file_path = req.query['file_path']
   line_numbers = req.query['line_numbers']&.split(/\s*,\s*/)&.map(&:to_i)
@@ -21,9 +18,6 @@ Handler = proc do |req, res|
     ]
 
   gist_text = GistGenerator::Serializers::Pretty.call(gists).first.join
-
-  puts "GISTS: #{gists}\n\n"
-  puts "TEXT: #{gist_text}\n\n"
 
   res.status = 200
   res['Content-Type'] = 'text/text; charset=utf-8'
